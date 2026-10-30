@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pencatat Pengeluaran</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try {
+      var t = localStorage.getItem('pencatat-tema') ||
+        (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="container">
+    <div class="topbar">
+      <h1>Pencatat Pengeluaran</h1>
+      <button type="button" id="theme-toggle" class="theme-btn" aria-label="Ganti tema terang/gelap"></button>
+    </div>
+
+    <header class="summary">
+      <div class="box balance">
+        <span class="box-label">Total Saldo</span>
+        <strong id="total">Rp 0</strong>
+      </div>
+      <div class="box expense">
+        <span class="box-label">Pengeluaran</span>
+        <strong id="expense">Rp 0</strong>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Tambah Transaksi</h2>
+      <form id="form" novalidate>
+        <label>Nama Item
+          <input type="text" id="name" placeholder="Contoh: Nasi goreng/gaji">
+        </label>
+        <label>Jumlah (Rp)
+          <input type="number" id="amount" min="1" step="any" placeholder="Contoh: 15000">
+        </label>
+        <label>Kategori
+          <select id="category">
+            <option value="">Pilih kategori</option>
+            <option>Makanan</option>
+            <option>Transportasi</option>
+            <option>Hiburan</option>
+            <option>Gaji</option>
+          </select>
+        </label>
+        <p id="error" class="error" role="alert"></p>
+        <button type="submit">Tambah</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Daftar Transaksi</h2>
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty">Belum ada transaksi.</p>
+    </section>
+
+    <section class="card">
+      <h2>Distribusi Pengeluaran</h2>
+      <div class="chart-wrap">
+        <canvas id="chart"></canvas>
+      </div>
+      <p id="chart-empty" class="empty">Grafik muncul setelah ada transaksi.</p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
